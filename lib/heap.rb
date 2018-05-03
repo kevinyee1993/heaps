@@ -1,6 +1,7 @@
 class BinaryMinHeap
   attr_reader :store, :prc
 
+  # def initialize(store = [], &prc)
   def initialize(&prc)
     @prc = prc
     @store = []
@@ -53,11 +54,15 @@ class BinaryMinHeap
     prc ||= Proc.new{|el1, el2| el1 <=> el2}
 
     # while(parent_idx < len-1 && self.child_indices(len, parent_idx).length > 0)
-    while(parent_idx < len - 1)
+
+    # while(parent_idx < len - 1)
+    (len).times do
 
       children = self.child_indices(len, parent_idx)
+      # children = array.child_indices(len, parent_idx)
       small_child = nil
 
+      # p array
       if children.length == 2
         # array[children[0]] < array[children[1]] ? small_child = children[0] : small_child = children[1]
         prc.call(array[children[0]], array[children[1]]) == -1 ? small_child = children[0] : small_child = children[1]
@@ -74,6 +79,8 @@ class BinaryMinHeap
         temp = array[parent_idx]
         array[parent_idx] = array[small_child]
         array[small_child] = temp
+
+        # p array
       end
       # end
 
