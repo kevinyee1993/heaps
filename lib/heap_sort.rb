@@ -23,15 +23,5 @@ class Array
 
 
     self
-
-    #in place heapify
-    # for i in 0..self.length - 1
-
-
-    # end
-
-    #parents need to be larger than children
-
-
   end
 end
