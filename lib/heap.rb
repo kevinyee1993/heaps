@@ -10,12 +10,24 @@ class BinaryMinHeap
   end
 
   def extract
+    temp = @store[0]
+    @store[0] = @store[-1]
+    @store[-1] = temp
+
+    popped = @store.pop
+
+    BinaryMinHeap.heapify_down(@store, 0)
+    popped
+
   end
 
   def peek
+    # return @store[0] if @store.length > 0
   end
 
   def push(val)
+    @store.push(val)
+    BinaryMinHeap.heapify_up(@store, @store.length-1)
   end
 
   public
@@ -68,7 +80,7 @@ class BinaryMinHeap
       parent_idx += 1
     end
 
-    array
+    @store = array
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
@@ -78,7 +90,7 @@ class BinaryMinHeap
     # while(self.parent_index(child_idx))
     while(child_idx > 0)
       parent_idx = self.parent_index(child_idx)
-      if(prc.call(array[parent_idx], array[child_idx]))
+      if(prc.call(array[parent_idx], array[child_idx]) == 1)
         temp = array[parent_idx]
         array[parent_idx] = array[child_idx]
         array[child_idx] = temp
@@ -87,7 +99,7 @@ class BinaryMinHeap
       child_idx = self.parent_index(child_idx)
     end
 
-    array
+    @store = array
 
   end
 
